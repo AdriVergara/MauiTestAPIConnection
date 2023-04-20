@@ -11,22 +11,56 @@
             VerticalOptions="Center">
 
             <Image
-                HeightRequest="50"
+                HeightRequest="100"
                 HorizontalOptions="Center"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 Source="dotnet_bot.png" />
 
             <StackLayout Orientation="Vertical">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Name: " />
-                    <Entry Text="{Binding NewPizza.Name}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Description: " />
-                    <Entry Text="{Binding NewPizza.Description}" />
-                </StackLayout>
 
-                <Button Command="{Binding SavePizza}" Text="Save" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Name: "
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="{Binding NewPizza.Name}"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Description: "
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding NewPizza.Description}"
+                        VerticalOptions="Center" />
+
+                    <Button
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Command="{Binding SavePizza}"
+                        HorizontalOptions="Center"
+                        Text="Save"
+                        WidthRequest="200" />
+
+                </Grid>
+
             </StackLayout>
 
             <ListView
