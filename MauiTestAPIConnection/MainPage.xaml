@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiTestAPIConnection.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25"
+            VerticalOptions="Center">
+
+            <Image
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                Source="dotnet_bot.png" />
+
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Name: " />
+                    <Entry Text="{Binding NewPizza.Name}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Description: " />
+                    <Entry Text="{Binding NewPizza.Description}" />
+                </StackLayout>
+
+                <Button Command="{Binding SavePizza}" Text="Save" />
+            </StackLayout>
+
+            <ListView
+                x:Name="Pizzas"
+                HasUnevenRows="True"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Pizzas}"
+                RowHeight="100"
+                SelectionMode="None"
+                SeparatorVisibility="Default"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontAttributes="Bold" Text="{Binding Id}" />
+                                <Label FontAttributes="Bold" Text="{Binding Name}" />
+                                <Label FontAttributes="Italic" Text="{Binding Description}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--<Label
+                FontSize="18"
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                SemanticProperties.HeadingLevel="Level2"
+                Text="Welcome to .NET Multi-platform App UI" />-->
+
+            <!--<Button
+                x:Name="CounterBtn"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Center"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Text="Click me" />-->
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
