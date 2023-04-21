@@ -50,9 +50,36 @@ namespace MauiTestAPIConnection.Services
             return Pizzas;
         }
 
-        public async Task SavePizzaAsync(Pizza item, bool isNewItem = false)
+        public async Task<Pizza> GetPizzaAsync(int id)
+        {
+            Pizza PizzaItem = new Pizza();
+
+            Uri uri = new Uri(string.Format(Constants.RestUrl, "pizza/" + id));
+            try
+            {
+                HttpResponseMessage response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    PizzaItem = JsonSerializer.Deserialize<Pizza>(content, _serializerOptions);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+
+            return PizzaItem;
+        }
+
+        public async Task SavePizzaAsync(Pizza item, bool isNewItem = false, int id = 0)
         {
             Uri uri = new Uri(string.Format(Constants.RestUrl, "pizza"));
+
+            if (!isNewItem)
+            {
+                uri = new Uri(string.Format(Constants.RestUrl, "pizza/" + id));
+            }
 
             try
             {
@@ -67,6 +94,22 @@ namespace MauiTestAPIConnection.Services
 
                 if (response.IsSuccessStatusCode)
                     Debug.WriteLine(@"\tPizza successfully saved.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+        }
+
+        public async Task DeletePizzaAsync(int id)
+        {
+            Uri uri = new Uri(string.Format(Constants.RestUrl, "pizza/" + id));
+
+            try
+            {
+                HttpResponseMessage response = await _client.DeleteAsync(uri);
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"\tTodoItem successfully deleted.");
             }
             catch (Exception ex)
             {

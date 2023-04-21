@@ -10,6 +10,8 @@ namespace MauiTestAPIConnection.Interfaces
     public interface IRestService
     {
         Task<List<Pizza>> RefreshDataAsync();
-        Task SavePizzaAsync(Pizza newPizza, bool isNewItem = false);
+        Task<Pizza> GetPizzaAsync(int id);
+        Task SavePizzaAsync(Pizza newPizza, bool isNewItem = false, int id = 0);
+        Task DeletePizzaAsync(int id);
     }
 }

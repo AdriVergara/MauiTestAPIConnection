@@ -62,6 +62,8 @@ namespace MauiTestAPIConnection.ViewModels
         }
 
         public ICommand SavePizza { set; get; }
+        public ICommand UpdatePizza { set; get; }
+        public ICommand DeletePizza { set; get; }
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -75,6 +77,8 @@ namespace MauiTestAPIConnection.ViewModels
             _restService = restService;
 
             SavePizza = new Command(async () => await ExecuteSavePizzaAsync());
+            UpdatePizza = new Command(async () => await ExecuteUpdatePizzaAsync());
+            DeletePizza = new Command(async () => await ExecuteDeletePizzaAsync());
 
             NewPizza = new Pizza();
 
@@ -94,6 +98,21 @@ namespace MauiTestAPIConnection.ViewModels
         private async Task ExecuteSavePizzaAsync()
         {
             await _restService.SavePizzaAsync(NewPizza, true);
+            NewPizza = new Pizza();
+            await GetPizzasAsync();
+        }
+
+        private async Task ExecuteUpdatePizzaAsync()
+        {
+            await _restService.SavePizzaAsync(NewPizza, false, NewPizza.Id);
+            NewPizza = new Pizza();
+            await GetPizzasAsync();
+        }
+
+        private async Task ExecuteDeletePizzaAsync()
+        {
+            await _restService.DeletePizzaAsync(NewPizza.Id);
+            NewPizza = new Pizza();
             await GetPizzasAsync();
         }
     }
