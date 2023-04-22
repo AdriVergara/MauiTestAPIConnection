@@ -15,21 +15,8 @@ namespace MauiTestAPIConnection.ViewModels
     public class MainPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public string _helloVar;
-
-        public string HelloVar
-        {
-            get => _helloVar;
-            set
-            {
-                if (_helloVar != value)
-                {
-                    _helloVar = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
+        public void OnPropertyChanged([CallerMemberName] string name = "") =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         private List<Pizza> _pizzas;
 
@@ -65,9 +52,6 @@ namespace MauiTestAPIConnection.ViewModels
         public ICommand UpdatePizza { set; get; }
         public ICommand DeletePizza { set; get; }
 
-        public void OnPropertyChanged([CallerMemberName] string name = "") =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
         private IRestService _restService;
 
         private readonly Task getPizzasAsyncTask;
@@ -87,6 +71,7 @@ namespace MauiTestAPIConnection.ViewModels
             //t.Wait();
             //Pizzas = t.Result;
 
+            //Instead do this:
             getPizzasAsyncTask = GetPizzasAsync();
         }
 

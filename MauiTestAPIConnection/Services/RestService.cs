@@ -50,7 +50,7 @@ namespace MauiTestAPIConnection.Services
             return Pizzas;
         }
 
-        public async Task<Pizza> GetPizzaAsync(int id)
+        public async Task<Pizza> GetPizzaAsync(int id) 
         {
             Pizza PizzaItem = new Pizza();
 
